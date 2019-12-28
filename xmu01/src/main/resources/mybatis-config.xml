@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--通过配置文件完成mybatis连接数据库-->
+<configuration>
+    <!--引入database.properties文件-->
+    <properties resource="database.properties"/>
+    <settings>
+        <setting name="logImpl" value="log4j"/>
+    </settings>
+    <!--指定别名-->
+    <typeAliases>
+        <!--<typeAlias type="cn.mybatis.pojo.User" alias="User"/>-->
+        <package name="cn.itcast.pojo"/>
+    </typeAliases>
+    <!--配置环境 可配置多个 可设置默认值-->
+    <environments default="development">
+        <environment id="development">
+            <!--才用JDBC事务管理-->
+            <transactionManager type="JDBC"></transactionManager>
+            <!--数据源:1.mybatis自带 _ POOLED 2.Tomcat 自带  JNDI-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${driver}"/>
+                <property name="url" value="${url}"/>
+                <property name="username" value="${user}"/>
+                <property name="password" value="${password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--将mapper文件加入到配置文件中-->
+    <mappers>
+        <!--扫描Dao包,自动装配-->
+      <package name="cn.itcast.dao"/>
+    </mappers>
+</configuration>
